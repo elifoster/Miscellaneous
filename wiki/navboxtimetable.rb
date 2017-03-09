@@ -1,7 +1,12 @@
 require 'mediawiki/butt'
+require 'io/console'
 
 @mw = MediaWiki::Butt.new('https://ftb.gamepedia.com/api.php', query_limit_default: 'max', assertion: :bot, use_continuation: true)
-@mw.login('username', 'password')
+print 'Enter your username: '
+username = gets.chomp
+print 'Enter your password (hidden): '
+password = STDIN.noecho(:&gets).chomp
+@mw.login(username, password)
 
 def parse(title)
   params = {
