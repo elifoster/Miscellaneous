@@ -5,7 +5,7 @@ require 'io/console'
 print 'Enter your username: '
 username = gets.chomp
 print 'Enter your password (hidden): '
-password = STDIN.noecho(:&gets).chomp
+password = STDIN.noecho(&:gets).chomp
 @mw.login(username, password)
 
 def parse(title)
