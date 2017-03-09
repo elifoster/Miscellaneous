@@ -1,6 +1,29 @@
 require 'mediawiki/butt'
 require 'io/console'
 
+class ReportData
+  attr_reader :cpu_time
+  attr_reader :real_time
+  
+  def initialize(cpu_time, real_time)
+    @cpu_time = cpu_time.wrap_with_color
+    @real_time = real_time.wrap_with_color
+  end
+end
+
+class Float
+  def wrap_with_color
+    color = 'green'
+    if self > 3
+      color = 'darkred'
+    elsif self > 2
+      color = 'red'
+    end
+
+    "<span style=\"color: #{color}\">#{self} seconds</span>"
+  end
+end
+
 @mw = MediaWiki::Butt.new('https://ftb.gamepedia.com/api.php', query_limit_default: 'max', assertion: :bot, use_continuation: true)
 print 'Enter your username: '
 username = gets.chomp
@@ -41,26 +64,3 @@ end
 
 str << "|}\n"
 print str
-
-class ReportData
-  attr_reader :cpu_time
-  attr_reader :real_time
-  
-  def initialize(cpu_time, real_time)
-    @cpu_time = cpu_time.wrap_with_color
-    @real_time = real_time.wrap_with_color
-  end
-end
-
-class Float
-  def wrap_with_color
-    color = 'green'
-    if self > 3
-      color = 'darkred'
-    elsif self > 2
-      color = 'red'
-    end
-
-    "<span style=\"color: #{color}\">#{self} seconds</span>"
-  end
-end
