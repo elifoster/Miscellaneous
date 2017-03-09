@@ -30,7 +30,7 @@ navboxes.each do |navbox|
     is_lua = content.start_with?('{{#invoke:Navbox')
   end
   
-  report = parse(navbox)
+  report = parse(is_lazy ? "#{navbox}/content" : navbox)
   str << "| {{Tl|#{navbox.sub('Template:', '')}}} || #{report.cpu_time} || #{report.real_time} || #{is_lua ? 'Lua' : 'Wikitext'} || #{is_lazy.to_s.capitalize}\n"
 end
 
