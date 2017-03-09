@@ -25,7 +25,7 @@ navboxes.each do |navbox|
   is_lazy = content.start_with?('{{Navbox/Lazy')
   if is_lazy
     content_content = @mw.get_text("#{navbox}/content")
-    is_lua = content_content.start_with?('{{Navbox/Lazy/content') # This template does the #invoke thing as described below
+    is_lua = content_content.start_with?('{{Navbox/Lazy/content') || content_content.start_with?('{{#invoke:Navbox')
   else
     is_lua = content.start_with?('{{#invoke:Navbox')
   end
